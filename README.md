@@ -1,4 +1,4 @@
-marlito-nginx
+apollo-nginx
 =============
 
 It is nginx server that list for announcements on the cluster and
@@ -16,7 +16,7 @@ Build this repository:
 
 ```
 $ cd nginx/
-$ docker build -t marlito/nginx:development .
+$ docker build -t apollo/nginx:development .
 ```
 
 Container
@@ -37,7 +37,7 @@ Shell access:
 ```
 $ docker run --rm -p 80:80 -i \
 -e COREOS_IP=<IP-ADDRESS> \
--t marlito/nginx:development /bin/bash
+-t apollo/nginx:development /bin/bash
 ```
 
 The command above will start a container give you a shell. Don't
@@ -48,7 +48,7 @@ Manual start:
 ```
 $ docker run --name nginx -p 80:80 \
 -e COREOS_IP=<IP-ADDRESS> \
--d marlito/nginx:development
+-d apollo/nginx:development
 ```
 
 The command above will start a container and return its ID.
@@ -62,6 +62,6 @@ for instruction how to start a registry.
 ```
 REGISTRY=<LOCAL_IP>
 TAG=development
-docker tag marlito/nginx:$TAG $REGISTRY:5000/marlito/nginx:$TAG
-docker push $REGISTRY:5000/marlito/nginx:$TAG
+docker tag apollo/nginx:$TAG $REGISTRY:5000/apollo/nginx:$TAG
+docker push $REGISTRY:5000/apollo/nginx:$TAG
 ```

@@ -4,5 +4,5 @@ dest  = "/etc/nginx/sites-available/api"
 uid = 0
 gid = 0
 mode  = "0755"
-keys = ["/marlito/api"]
+keys = ["/apollo/api"]
 reload_cmd = "supervisorctl restart nginx"

@@ -1,5 +1,5 @@
 upstream api {
-    {{ range $server := .marlito_api }}
+    {{ range $server := .apollo_api }}
     server {{ $server.Value }};
     {{ end }}
 }
@@ -7,7 +7,7 @@ upstream api {
 server {
     listen 80 default_server;
 
-    server_name local.api.marlito.com.br;
+    server_name local.api.apollolab.com.br;
 
     location / {
         include            uwsgi_params;
