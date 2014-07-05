@@ -1,0 +1,28 @@
+#!/bin/bash -e
+
+available=/etc/nginx/sites-available
+enabled=/etc/nginx/sites-enabled
+etcd=${COREOS_IP}:4001
+
+until /usr/local/bin/confd -onetime -node $etcd -config-file /etc/confd/confd.toml 2>/dev/null; do
+    sleep 1
+done
+
+/usr/local/bin/confd -node $etcd -config-file /etc/confd/confd.toml &
+
+if [ -f /etc/nginx/sites-enabled/default ]; then
+    rm /etc/nginx/sites-enabled/default
+fi
+
+if [ -f /etc/nginx/sites-available/default ]; then
+    rm /etc/nginx/sites-available/default
+fi
+
+# Enable available sites
+for site in $(ls $available); do
+    if [ ! -e $enabled/$site ]; then
+        ln -s $available/$site $enabled/$site
+    fi
+done
+
+exec /usr/bin/supervisord
