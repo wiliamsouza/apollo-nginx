@@ -1,5 +1,5 @@
 apollo-nginx
-=============
+============
 
 It is nginx server that list for announcements on the cluster and
 reconfigures itself adding and removing instances according.
@@ -15,8 +15,7 @@ Image
 Build this repository:
 
 ```
-$ cd nginx/
-$ docker build -t apollo/nginx:development .
+docker build -t apollo/nginx:development .
 ```
 
 Container
@@ -35,7 +34,7 @@ The commands here should be executed inside a cluster node.
 Shell access:
 
 ```
-$ docker run --rm -p 80:80 -i \
+docker run --rm -p 80:80 -i \
 -e COREOS_IP=<IP-ADDRESS> \
 -t apollo/nginx:development /bin/bash
 ```
@@ -46,7 +45,7 @@ forget to start the service running the `startup &` script.
 Manual start:
 
 ```
-$ docker run --name nginx -p 80:80 \
+docker run --name nginx -p 80:80 \
 -e COREOS_IP=<IP-ADDRESS> \
 -d apollo/nginx:development
 ```
@@ -64,4 +63,12 @@ REGISTRY=<LOCAL_IP>
 TAG=development
 docker tag apollo/nginx:$TAG $REGISTRY:5000/apollo/nginx:$TAG
 docker push $REGISTRY:5000/apollo/nginx:$TAG
+```
+
+Start it on the cluster:
+
+```
+cd systemd
+ln -s nginx.service nginx@80.service
+fleetctl start nginx@80.service
 ```
