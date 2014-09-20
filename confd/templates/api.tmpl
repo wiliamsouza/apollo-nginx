@@ -7,12 +7,10 @@ upstream api {
 server {
     listen 80 default_server;
 
-    server_name local.api.apollolab.com.br;
+    server_name {{ apollo_environment }}.api.apollolab.com.br;
 
     location / {
-        include            uwsgi_params;
-        uwsgi_pass         api;
-
+        proxy_pass         api;
         proxy_redirect     off;
         proxy_set_header   Host $host;
         proxy_set_header   X-Real-IP $remote_addr;
