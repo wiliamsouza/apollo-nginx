@@ -7,9 +7,10 @@ After=docker.service
 EnvironmentFile=/etc/environment
 EnvironmentFile=/etc/env.d/apollo
 TimeoutStartSec=0
-ExecStartPre=/usr/bin/docker pull ${DOCKER_REGISTRY}:5000/apollo/nginx:${ENVIRONMENT}
-ExecStart=/usr/bin/docker run --name nginx-%i --rm -p 80:80 -e COREOS_IP=${COREOS_PRIVATE_IPV4} ${DOCKER_REGISTRY}:5000/apollo/nginx:${ENVIRONMENT}
+ExecStartPre=/usr/bin/docker pull ${DOCKER_REGISTRY}/apollo/nginx:${APOLLO_ENVIRONMENT}
+ExecStart=/usr/bin/docker run --name nginx-%i --rm -p 80:80 -e COREOS_IP=${COREOS_PRIVATE_IPV4} ${DOCKER_REGISTRY}/apollo/nginx:${APOLLO_ENVIRONMENT}
 ExecStartPost=/usr/bin/etcdctl set /apollo/nginx/%i ${COREOS_PUBLIC_IPV4}:%i
+ExecStartPost=/usr/bin/etcdctl set /apollo/environment ${APOLLO_ENVIRONMENT}
 ExecStop=/usr/bin/docker stop nginx-%i
 ExecStopPost=/usr/bin/etcdctl rm /apollo/nginx/%i
 
