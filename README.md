@@ -16,7 +16,7 @@ Environment
 Set the environment you are working on.
 
 ```
-APOLLO_ENVIRONMENT=local
+export APOLLO_ENVIRONMENT=local
 ```
 
 Image
@@ -65,13 +65,13 @@ The command above will start a container and return its ID.
 Pushing images
 --------------
 
-Push a image manually:
+Push a image manually, this will preload the image to the cluster node:
 
 ```
-IMAGE =<IMAGE>
-COREOS_IP=<IP_ADDRESS>
+IMAGE="apollo/nginx"
+COREOS_IP=172.16.16.101
 docker save $IMAGE | docker -H tcp://$COREOS_IP:2375 load
-docker -H tcp://$COREOS_IP:2375 tag $IMAGE apollo/nginx:development
+docker -H tcp://$COREOS_IP:2375 tag $IMAGE apollo/nginx:$APOLLO_ENVIRONMENT
 ```
 
 Before push an image you need start a local registry `apollo-registry/README.md`
@@ -84,11 +84,14 @@ docker tag apollo/nginx:$TAG $REGISTRY/apollo/nginx:$TAG
 docker push $REGISTRY/apollo/nginx:$TAG
 ```
 
+Starting service
+----------------
+
 Start the service on the cluster:
 
 ```
 cd systemd
-ln -s nginx.service nginx@80.service
-fleetctl start nginx@80.service
+ln -s nginx.service nginx@1.service
+fleetctl start nginx@1.service
 ```
 Info about how to configure fleet `apollo-coreos/README.md#fleet`.
