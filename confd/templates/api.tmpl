@@ -7,7 +7,11 @@ upstream api {
 server {
     listen 80 default_server;
 
-    server_name {{ apollo_environment }}.api.apollolab.com.br;
+    {{ if .apollo_environment == "production" }}
+    server_name api.apollolab.com.br;
+    {{ else }}
+    server_name {{ .apollo_environment }}.api.apollolab.com.br;
+    {{ end }}
 
     location / {
         proxy_pass         api;

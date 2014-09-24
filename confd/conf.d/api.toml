@@ -1,8 +1,9 @@
 [template]
 src   = "api.tmpl"
 dest  = "/etc/nginx/sites-available/api"
-uid = 0
-gid = 0
+owner = "root"
+group = "root"
 mode  = "0755"
 keys = ["/apollo/api"]
+check_cmd  = "/usr/sbin/nginx -t -c {{ .dest }}"
 reload_cmd = "supervisorctl restart nginx"
