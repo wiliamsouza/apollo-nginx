@@ -33,24 +33,21 @@ CMD ["/usr/local/bin/startup"]
 # dependencies
 RUN apt-get install curl -y
 
-RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.5.0/confd-0.5.0-darwin-amd64 -o /usr/local/bin/confd
-RUN chmod +x /usr/local/bin/confd
-
-# ppas
+# repos
 RUN add-apt-repository ppa:nginx/stable -y
 RUN apt-get update
 
-# install etcdctl binary
-ADD bin/etcdctl /usr/local/bin/etcdctl
-RUN chmod +x /usr/local/bin/etcdctl
+# confd binary
+RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.5.0/confd-0.5.0-darwin-amd64 -o /usr/local/bin/confd
+RUN chmod +x /usr/local/bin/confd
+
+# confd configuration
+ADD confd /etc/confd
 
 # nginx
 RUN apt-get install nginx nginx-extras -y
 RUN update-rc.d -f nginx disable
 
 ADD etc/nginx.conf /etc/nginx/nginx.conf
-
-# source code
-ADD confd /etc/confd
 
 EXPOSE 80
