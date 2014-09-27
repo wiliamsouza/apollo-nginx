@@ -7,13 +7,7 @@ reconfigures itself adding and removing instances according.
 Environment
 -----------
 
-Set the environment you are working on.
-
-```
-export APOLLO_ENVIRONMENT=local
-export APOLLO_TAG=$APOLLO_ENVIRONMENT
-export DOCKER_REGISTRY="${APOLLO_ENVIRONMENT}.registry.apollolab.com.br:5000"
-```
+Before run see [apollo-coreos](https://github.com/wiliamsouza/apollo-coreos#environment) for instructions.
 
 Image
 -----
