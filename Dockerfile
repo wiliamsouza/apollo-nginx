@@ -1,8 +1,8 @@
 # Nginx server generic image source
 #
-# Version 0.2.0
+# Version 0.3.0
 
-FROM ubuntu:12.04
+FROM ubuntu:14.04
 
 MAINTAINER Wiliam Souza <wiliamsouza83@gmail.com>
 
@@ -14,7 +14,7 @@ RUN locale-gen en_US en_US.UTF-8
 RUN dpkg-reconfigure locales
 RUN apt-get update
 
-RUN apt-get install -y python-software-properties
+RUN apt-get install -y python-software-properties software-properties-common
 
 # supervisor
 RUN apt-get install supervisor -y
@@ -38,7 +38,7 @@ RUN add-apt-repository ppa:nginx/stable -y
 RUN apt-get update
 
 # confd binary
-RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.5.0/confd-0.5.0-darwin-amd64 -o /usr/local/bin/confd
+RUN curl -L https://github.com/kelseyhightower/confd/releases/download/v0.5.0/confd-0.5.0-linux-amd64 -o /usr/local/bin/confd
 RUN chmod +x /usr/local/bin/confd
 
 # confd configuration
