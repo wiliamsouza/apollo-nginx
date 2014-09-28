@@ -9,6 +9,11 @@ Environment
 
 Before run see [apollo-coreos](https://github.com/wiliamsouza/apollo-coreos#environment) for instructions.
 
+```
+IMAGE="${DOCKER_REGISTRY}/apollo/nginx"
+COREOS_IP=172.16.16.101
+```
+
 Image
 -----
 
@@ -24,8 +29,6 @@ Pushing images
 Push the image manually, this will preload the image to the cluster node:
 
 ```
-IMAGE="${DOCKER_REGISTRY}/apollo/nginx"
-COREOS_IP=172.16.16.101
 docker save $IMAGE | docker -H tcp://$COREOS_IP:2375 load
 ```
 
@@ -61,6 +64,7 @@ Shell access:
 
 ```
 docker run --rm -p 80:80 -i \
+-e COREOS_IP=${COREOS_PUBLIC_IPV4} \
 -t $DOCKER_REGISTRY/apollo/nginx:$APOLLO_ENVIRONMENT /bin/bash
 ```
 
@@ -71,6 +75,7 @@ Manual start:
 
 ```
 docker run --name nginx -p 80:80 \
+-e COREOS_IP=${COREOS_PUBLIC_IPV4} \
 -d $DOCKER_REGISTRY/apollo/nginx:$APOLLO_ENVIRONMENT
 ```
 
