@@ -1,8 +1,0 @@
-[template]
-src   = "registry.tmpl"
-dest  = "/etc/nginx/sites-available/registry"
-owner = "root"
-group = "root"
-mode  = "0755"
-keys = ["/apollo/registry"]
-reload_cmd = "supervisorctl restart nginx"

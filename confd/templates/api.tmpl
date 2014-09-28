@@ -5,16 +5,16 @@ upstream api {
 }
 
 server {
-    listen 80 default_server;
+    listen 80;
 
-    {{ if .apollo_environment == "production" }}
+    {{ if eq "production" .apollo_environment }}
     server_name api.apollolab.com.br;
     {{ else }}
     server_name {{ .apollo_environment }}.api.apollolab.com.br;
     {{ end }}
 
     location / {
-        proxy_pass         api;
+        proxy_pass         http://api;
         proxy_redirect     off;
         proxy_set_header   Host $host;
         proxy_set_header   X-Real-IP $remote_addr;

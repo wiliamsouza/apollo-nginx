@@ -4,6 +4,5 @@ dest  = "/etc/nginx/sites-available/api"
 owner = "root"
 group = "root"
 mode  = "0755"
-keys = ["/apollo/api"]
-check_cmd  = "/usr/sbin/nginx -t -c {{ .dest }}"
+keys = ["/apollo/api", "/apollo/environment"]
 reload_cmd = "supervisorctl restart nginx"
