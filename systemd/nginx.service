@@ -18,4 +18,4 @@ ExecStopPost=/usr/bin/etcdctl rm /apollo/nginx/%i
 WantedBy=multi-user.target
 
 [X-Fleet]
-X-Conflicts=nginx-*.service
+Conflicts=nginx*
